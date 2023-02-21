@@ -23,6 +23,16 @@ class Halaman extends Model
         return $this->morphOne(File::class, 'morph');
     }
 
+    public function file_logo()
+    {
+        return $this->morphOne(File::class, 'morph')->where('name', '=', 'file_logo');
+    }
+
+    public function file_pendukung()
+    {
+        return $this->morphOne(File::class, 'morph')->where('name', '=', 'file_pendukung');
+    }
+    
     public function parent()
     {
         return $this->belongsTo('App\Model\Halaman', 'parent_id');
@@ -31,5 +41,39 @@ class Halaman extends Model
     public function children()
     {
         return $this->hasMany('App\Model\Halaman','parent_id','id');
+    }
+
+    public static function tree() 
+    { 
+        return static::with(implode('.', array_fill(0, 100, 'children')))->where('parent_id', '=', null)->get(); 
+    }
+
+    public function childrenRecursive()
+    {
+    return $this->children()->with('childrenRecursive');
+    }
+
+    public function parentRecursive()
+    {
+    return $this->parent()->with('parentRecursive');
+    }
+
+    function createMenuTree($item) {
+        
+        if ($item->parentRecursive) {
+            $this->createMenuTree($item->parentRecursive);
+            echo "<li>" . $item->nama."</li>";
+        } else {
+            echo "<li>" . $item->nama . "</li>";
+        }
+    }
+    function createHeaderTree($item) {
+        
+        if ($item->parentRecursive) {
+            $this->createHeaderTree($item->parentRecursive);
+            echo '<a href="'.url('halaman/'.$item->id).'">'.$item->nama."</a> > ";
+        } else {
+            echo '<a href="'.url('halaman/'.$item->id).'">'.$item->nama."</a> > ";
+        }
     }
 }

@@ -24,20 +24,57 @@ class portalController extends Controller
     public function data(Request $request, $id)
     {
         if ($request->ajax()) {
-            $data= $this->model::whereHalamanId($id)->latest()->get();
+            $data= $this->model::where('parent_id',$id)->get();
             return Datatables::of($data)->addIndexColumn()
-            ->addColumn('link', function($q){
-                $link = '<div style="text-align: center;"><a href="'.url($q->link).'?t='.time().'" class="text-info"><i class="fa fa-search text-info"></i></a></div>';
-                return $link ?? NULL;
+            ->addColumn('kelola', function($q){
+                if($q->status==0){
+                    $kelola = '<div style="text-align: center;">
+                        <a class="create" data-toggle="tooltip" data-placement="top" title="Tambah" '.$this->kode.'-id="'.$q->id.'" href="#create-'.$q->id.'">
+                            <i class="fas fa-plus text-info"></i>
+                        </a>
+                    </div>';
+                }elseif($q->status==1){
+                    $kelola = '<div style="text-align: center;">
+                        <a href="'.url($this->kode.'/'.$q->id).'" class="text-info">
+                            <i class="fas fa-share text-info"></i>
+                        </a>
+                    </div>';
+                }elseif($q->status==2){
+                    $kelola = '<div style="text-align: center;">
+                        <a class="link" data-toggle="tooltip" data-placement="top" title="Tambah" '.$this->kode.'-id="'.$q->id.'" href="#link-'.$q->id.'">
+                        <i class="fas fa-link"></i>
+                        </a>
+                    </div>';
+                }elseif($q->status==3){
+                    $kelola = '<div style="text-align: center;">
+                        <a data-toggle="tooltip" data-placement="top" title="Tambah" href="'.url('upload/'.$q->id).'">
+                            <i class="fas fa-upload text-info"></i>
+                        </a>
+                    </div>';
+                }elseif($q->status==4){
+                    $kelola = '<div style="text-align: center;">
+                        <a data-toggle="tooltip" data-placement="top" title="Tambah" href="'.url('portal/'.$q->id).'">
+                            <i class="fas fa-upload text-info"></i>
+                        </a>
+                    </div>';
+                }elseif($q->status==5){
+                    $kelola = '<div style="text-align: center;">
+                        <a class="upload" data-toggle="tooltip" data-placement="top" title="Tambah" '.$this->kode.'-id="'.$q->id.'" href="#upload-'.$q->id.'">
+                            <i class="fas fa-file-upload"></i>
+                        </a>
+                    </div>';
+                }
+                
+                return $kelola ?? NULL;
             })
-                ->addColumn('action', '<div style="text-align: center;">
+            ->addColumn('action', '<div style="text-align: center;">
                <a class="edit ubah" data-toggle="tooltip" data-placement="top" title="Edit" '.$this->kode.'-id="{{ $id }}" href="#edit-{{ $id }}">
                    <i class="fa fa-edit text-warning"></i>
                </a>&nbsp; &nbsp;
                <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" href="#hapus-{{ $id }}" '.$this->kode.'-id="{{ $id }}">
                    <i class="fa fa-trash text-danger"></i>
                </a>
-           </div>')->toJson();
+           </div>')->rawColumns(['action', 'kelola'])->toJson();
         }
         else {
             exit("Not an AJAX request -_-");
@@ -58,6 +95,30 @@ class portalController extends Controller
         return view('backend.'.$this->kode.'.tambah-detail', ['id'=>$id]);
     }
 
+    public function save($id)
+    {
+        $data=[
+            'data'    => $this->model::find($id)
+        ];
+        return view('backend.'.$this->kode.'.save', $data);
+    }
+
+    public function link($id)
+    {
+        $data=[
+            'data'    => $this->model::find($id)
+        ];
+        return view('backend.'.$this->kode.'.link', $data);
+    }
+    public function upload($id)
+    {
+        $data=[
+            'data'    => $this->model::find($id)
+        ];
+        return view('backend.'.$this->kode.'.upload', $data);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -68,22 +129,29 @@ class portalController extends Controller
     {
         if ($request->ajax()) {
             $validator=Validator::make($request->all(), [
-                'name'                  => 'required|'.config('master.regex.json'),
-                'link'                  => 'required|'.config('master.regex.json')
+                'nama'                  => 'required|'.config('master.regex.json'),
+                'status'                => 'required|'.config('master.regex.json')
                 ]);
             if ($validator->fails()) {
                 $respon=['status'=>false, 'pesan'=>$validator->messages()];
             }
             else {
-                $this->model::create($request->all());
-
-                $data = Halaman::find($request->halaman_id);
-                if ($request->hasFile('file_pendukung')) {
+                $data = $this->model::create($request->all());
+                if ($request->hasFile('file_logo')) {
                     $data->file()->create([
-                        'name'                  => $request->name,
+                        'name'                  => 'file_logo',
                         'data'                      =>  [
                             'disk'      => config('filesystems.default'),
-                            'target'    => Storage::putFile($this->kode.'/file/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file_pendukung')),
+                            'target'    => Storage::putFile($this->kode.'/file_logo/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file_logo')),
+                        ]
+                    ]);
+                }
+                if ($request->hasFile('file_pendukung')) {
+                    $data->file()->create([
+                        'name'                  => 'file_pendukung',
+                        'data'                      =>  [
+                            'disk'      => config('filesystems.default'),
+                            'target'    => Storage::putFile($this->kode.'/file_portal/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file_pendukung')),
                         ]
                     ]);
                 }
@@ -96,6 +164,77 @@ class portalController extends Controller
         }
     }
     
+    
+    public function store_halaman(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator=Validator::make($request->all(), [
+                'isi'       => 'required'
+                ]);
+            if ($validator->fails()) {
+                $respon=['status'=>false, 'pesan'=>$validator->messages()];
+            }
+            else {
+                $this->model::whereId($request->id)->first()->update($request->all());
+                $respon=['status'=>true, 'pesan'=>'Data berhasil disimpan'];
+            }
+            return $respon;
+        }
+        else {
+            exit('Ops, an Ajax request');
+        }
+    }
+
+    public function store_upload(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator=Validator::make($request->all(), [
+                'file'                  => $request->hasFile('file') ? 'required|mimes:pdf,rar,zip,jpg,png' : ''
+            ]);
+            if ($validator->fails()) {
+                $response=['status'=>FALSE, 'pesan'=>$validator->messages()];
+            }
+            else {
+                $data = $this->model::find($request->id);
+                if ($request->hasFile('file')) {
+                    $data->file()->updateOrCreate(['morph_id'=>$data->id],[
+                        'morph_id'                  => $data->id,
+                        'data'                  =>  [
+                            'disk'      => config('filesystems.default'),
+                            'target'    => Storage::putFile($this->kode.'/file/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file')),
+                        ]
+                    ]);
+                }
+                $respon=['status'=>true, 'pesan'=>'Data berhasil disimpan'];
+            }
+            return $response ?? ['status'=>TRUE, 'pesan'=>['msg'=>'Data berhasil diubah']];
+        }
+        else {
+            exit('Ops, an Ajax request');
+        }
+    }
+    
+    public function store_link(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator=Validator::make($request->all(), [
+                'link'       => 'required'
+                ]);
+            if ($validator->fails()) {
+                $respon=['status'=>false, 'pesan'=>$validator->messages()];
+            }
+            else {
+                $this->model::whereId($request->id)->first()->update($request->all());
+                $respon=['status'=>true, 'pesan'=>'Data berhasil disimpan'];
+            }
+            return $respon;
+        }
+        else {
+            exit('Ops, an Ajax request');
+        }
+    }
+    
+
     /**
      * Display the specified resource.
      *
@@ -105,7 +244,8 @@ class portalController extends Controller
     public function show($id)
     {
         $data=[
-            'id'    => $id
+            'id'    => $id,
+            'data'    => $this->model::find($id)
         ];
         return view('backend.'.$this->kode.'.detail', $data);
     }
@@ -135,14 +275,33 @@ class portalController extends Controller
     {
         if ($request->ajax()) {
             $validator=Validator::make($request->all(), [
-                'name'                  => 'required|'.config('master.regex.json'),
-                'link'        => $request->hasFile('link') ? 'required|mimes:pdf,rar,zip' : ''
+                'nama'                  => 'required|'.config('master.regex.json'),
+                'status'                => 'required|'.config('master.regex.json'),
             ]);
             if ($validator->fails()) {
                 $response=['status'=>FALSE, 'pesan'=>$validator->messages()];
             }
             else {
                 $this->model::find($id)->update($request->all());
+                $data = $this->model::find($id);
+                if ($request->hasFile('file_logo')) {
+                    $data->file_logo()->updateOrCreate(['name' => 'file_logo'],[
+                        'name'                  => 'file_logo',
+                        'data'                      =>  [
+                            'disk'      => config('filesystems.default'),
+                            'target'    => Storage::putFile($this->kode.'/file_logo/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file_logo')),
+                        ]
+                    ]);
+                }
+                if ($request->hasFile('file_pendukung')) {
+                    $data->file_pendukung()->updateOrCreate(['name' => 'file_pendukung'],[
+                        'name'                  => 'file_pendukung',
+                        'data'                      =>  [
+                            'disk'      => config('filesystems.default'),
+                            'target'    => Storage::putFile($this->kode.'/file_portal/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file_pendukung')),
+                        ]
+                    ]);
+                }
                 $respon=['status'=>true, 'pesan'=>'Data berhasil diubah'];
             }
             return $response ?? ['status'=>TRUE, 'pesan'=>['msg'=>'Data berhasil diubah']];

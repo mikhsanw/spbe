@@ -32,6 +32,26 @@ class Menu extends Model
         return $this->hasMany('App\Model\Menu','parent_id','id')->sort();
     }
 
+    public function childrenRecursive()
+    {
+        return $this->children()->with('childrenRecursive');
+    }
+
+    public function parentRecursive()
+    {
+        return $this->parent()->with('parentRecursive');
+    }
+    
+    function createMenuTree($item) {
+        
+        if ($item->parentRecursive) {
+            $this->createMenuTree($item->parentRecursive);
+            echo '<li class="breadcrumb-item" aria-current="page">' . $item->nama."</li>";
+        } else {
+            echo '<li class="breadcrumb-item" aria-current="page">' . $item->nama."</li>";
+        }
+    }
+
     public function checkAksesmenu($aksesgrup_id)
     {
         $aksesmenu=Aksesmenu::where('menu_id', $this->id)->where('aksesgrup_id', $aksesgrup_id);

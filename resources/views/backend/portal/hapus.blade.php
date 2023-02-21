@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<p>
-			<label class="control-label">Hapus data <strong>{{ $data->name }}</strong>?</label>
+			<label class="control-label">Hapus data <strong>{{ $data->nama }}</strong>?</label>
 		</p>
 	</div>
 	{!! Form::hidden('table-list', 'datatable', array('id' => 'table-list')) !!}

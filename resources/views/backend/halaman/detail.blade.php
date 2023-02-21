@@ -1,6 +1,14 @@
 @extends('layouts.backend.index')
 @push('title',ucwords(strtolower($halaman->nama)))
-@push('header',ucwords(strtolower($halaman->nama)))
+@push('header')
+	<a href="{{url('halaman')}}">{{$halaman->nama}}</a> > 
+	@if($data->parentRecursive)
+		{!!$data->createHeaderTree($data->parentRecursive)!!}
+		{{$data->nama}}
+	@else
+		{{$data->nama}}
+	@endif
+@endpush
 @push('tombol')
 <a class="waves-effect waves-light btn bg-gradient-danger text-white py-2 px-3 tambah-halaman" href="{{ url()->previous() }}">
 	Kembali

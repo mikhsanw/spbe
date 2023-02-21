@@ -24,7 +24,7 @@ class halamanController extends Controller
     public function data(Request $request, $id=NULL)
     {
         if ($request->ajax()) {
-            $data= $id!=NULL ? $this->model::whereParentId($id)->latest()->get() : $this->model::whereNull('parent_id')->whereJenis(config('master.jenis_halaman.halaman-company'))->get();
+            $data= $id!=NULL ? $this->model::whereParentId($id)->get() : $this->model::whereNull('parent_id')->whereJenis(config('master.jenis_halaman.halaman-company'))->get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('kelola', function($q){
                     if($q->status==0){
@@ -53,8 +53,8 @@ class halamanController extends Controller
                         </div>';
                     }elseif($q->status==4){
                         $kelola = '<div style="text-align: center;">
-                            <a href="'.url($this->kode.'/'.$q->id).'" class="text-info">
-                                <i class="fas fa-share text-info"></i>
+                            <a data-toggle="tooltip" data-placement="top" title="Tambah" href="'.url('portal/'.$q->id).'">
+                                <i class="fas fa-upload text-info"></i>
                             </a>
                         </div>';
                     }elseif($q->status==5){
@@ -92,7 +92,10 @@ class halamanController extends Controller
 
     public function create_child($id)
     {
-        return view('backend.'.$this->kode.'.tambah-detail', ['id'=>$id]);
+        $data=[
+        'id' => $id
+        ];
+        return view('backend.'.$this->kode.'.tambah-detail', $data);
     }
 
     /**
@@ -226,7 +229,7 @@ class halamanController extends Controller
     public function show($id)
     {
         $data=[
-            'data'    => $this->model::find($id)
+            'data'    => $this->model::find($id),
         ];
         return view('backend.'.$this->kode.'.detail', $data);
     }

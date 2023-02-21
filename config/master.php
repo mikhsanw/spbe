@@ -85,5 +85,10 @@ return [
         '4'               => 'Portal',
         '5'               => 'File',    
     ],
-    
+    'status_portal'=>[
+        '1'               => 'Menu',
+        '2'               => 'Link',
+        '5'               => 'File',
+        '0'               => 'Konten',
+    ],    
 ];

@@ -2,21 +2,26 @@
 <div class="row">
     <div class="col-md-12">
         <p>
-            {!! Form::label('name', 'Masukkan Nama', array('class' => 'control-label')) !!}
-            {!! Form::text('name', null, array('id' => 'name', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
+            <small class="text-danger"> *</small>
+            {!! Form::label('nama', 'Masukkan Nama', array('class' => 'control-label')) !!}
+            {!! Form::text('nama', null, array('id' => 'nama', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
         </p>
         <p>
-            {!! Form::label('link', 'Masukkan Link', array('class' => 'control-label')) !!}
-            {!! Form::text('link', null, array('id' => 'link', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
+            <small class="text-danger"> *</small>
+            {!! Form::label('status', 'Pilih Status', array('class' => 'control-label')) !!}
+            {!! Form::select('status', config('master.status_portal'), null, array('id' => 'status', 'class' => 'form-control status', 'placeholder'=>'Pilih')) !!}
         </p>
         <p>
-            {!! Form::label('file_pendukung', 'Pilih File', array('class' => 'control-label')) !!}
-            <small class="fa fa-info-circle text-danger"> Ekstensi. Pdf / Zip/ Rar</small><br>
-            {!! Form::file('file_pendukung', null, array('id' => 'file_pendukung', 'class' => 'form-control')) !!}
+            {!! Form::label('file_logo', 'Upload Logo', array('class' => 'control-label')) !!}
+            <small class="text-danger"> * Ekstensi. Jpg / Png,  (Dimensi 163 x 100 pixel) </small><br />
+            <input type="file" name="file_logo" id="file_logo" class="form-control">
         </p>
+        <p class="input-link"><small class="text-danger"> *</small><label class="control-label">Masukkan Link</label><input type="text" name="link" id="link" class="form-control"></p>
+        <p class="input-file"><label class="control-label">Pilih File / Gambar</label><small class="text-danger"> * Ekstensi. Pdf / Zip / Rar / Jpg / Png </small><input type="file" name="file_pendukung" id="file_pendukung" class="form-control"></p>
+        <p class="input-konten"><small class="text-danger"> *</small><label class="control-label">Tambahkan informasi disini</label><textarea name="isi" id="isi" class="form-control js-summernote"></textarea></p>
     </div>
 	{!! Form::hidden('table-list', 'datatable', array('id' => 'table-list')) !!}
-    {!! Form::hidden('halaman_id', $id, array('id' => 'halaman_id')) !!}
+    {!! Form::hidden('parent_id', $id, array('id' => 'parent_id')) !!}
 </div>
 <div class="row">
 	<div class="col-md-12">
@@ -39,3 +44,32 @@
 <script src="{{ URL::asset('resources/vendor/jquery/jquery.form.js') }}"></script>
 <script src="{{ URL::asset(config('master.aplikasi.author').'/js/ajax_progress.js') }}"></script>
 <script src="{{ URL::asset(config('master.aplikasi.author').'/'.$halaman->kode.'/'.\Auth::id().'/ajax.js') }}"></script>
+<script type="text/javascript">
+    $('.modal-title').html('<span class="fa fa-edit"></span> Tambah {{$halaman->nama}}');
+    $('.js-summernote').summernote({
+        // toolbar: [['para', ['ul', 'ol']]],
+        height: 300,
+        dialogsInBody: true
+    });
+    
+    $('.input-link').hide();
+    $('.input-file').hide();
+    $('.input-konten').hide();
+    $('.status').change(function() {
+        if( $(this).val() == '2'){
+            $('.input-link').show();
+            $('.input-file').hide();
+            $('.input-konten').hide();
+        }
+        else if( $(this).val() == '5'){
+            $('.input-link').hide();
+            $('.input-file').show();
+            $('.input-konten').hide();
+        }
+        else if( $(this).val() == '0'){
+            $('.input-link').hide();
+            $('.input-file').hide();
+            $('.input-konten').show();
+        }
+    });
+</script>

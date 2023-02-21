@@ -117,4 +117,7 @@ class File extends Model
         parent::boot();
         static::uuidBoot();
     }
+    public function getFileName($id,$name){
+        return $this->where('morph_id',$id)->where('name', $name)->first();
+    }
 }

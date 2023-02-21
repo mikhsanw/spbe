@@ -11,8 +11,8 @@ $(document).ready(function() {
 		ajax: "{{ url($url_admin.'/'.$kode.'/data/'.$id) }}",
 		columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-				{ data: 'name' },
-				{ data: 'link' },
+				{ data: 'nama' },
+				{ data: 'kelola' },
 				{ data: 'action', orderable: false, searchable: false}
 		    ]
     });

@@ -1,6 +1,14 @@
 @extends('layouts.backend.index')
 @push('title',ucwords(strtolower($halaman->nama)))
-@push('header',ucwords(strtolower($halaman->nama)))
+@push('header')
+	<a href="{{url('halaman')}}">Halaman</a> > 
+	@if($data->parentRecursive)
+		{!!$data->createHeaderTree($data->parentRecursive)!!}
+		{{$data->nama}}
+	@else
+		{{$data->nama}}
+	@endif
+@endpush
 @push('tombol')
 <button class="waves-effect waves-light btn bg-gradient-primary text-white py-2 px-3 tambah-halaman">
 	Tambah
@@ -14,7 +22,7 @@
 				<tr>
 					<th class="w-25">No</th>
 					<th class="text-center">Nama</th>
-					<th class="text-center">Link</th>
+					<th class="text-center">Kelola</th>
 					<th width="50px" class="text-center" tabindex="0" rowspan="1" colspan="1">Aksi</th>
 				</tr>
 			</thead>
@@ -28,4 +36,8 @@
 <script type="text/javascript" src="{{ URL::asset(config('master.aplikasi.author').'/'.$halaman->kode.'/'.$id.'/datatables_detail.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset(config('master.aplikasi.author').'/'.$halaman->kode.'/'.$id.'/jquery-detail.js') }}"></script>
 <script src="{{ asset('backend/assets/vendor_components/select2/dist/js/select2.full.js')}}"></script>
+<script src="{{ asset('backend/fromplugin/summernote/summernote.js') }}" async=""></script>
+@endpush
+@push('css')
+<link rel="stylesheet" media="screen, print" href="{{ asset('backend/fromplugin/summernote/summernote.css') }}">
 @endpush

@@ -15,12 +15,22 @@ class Portal extends Model
         'id'=>'string',
     ];
     protected $fillable=[
-        'id', 'nama','link', 'isi', 'parent_id', 'status'
+        'id', 'nama','link', 'isi', 'parent_id', 'status', 'kategori', 'halaman_id'
     ];
 
     public function file()
     {
         return $this->morphOne(File::class, 'morph');
+    }
+
+    public function file_logo()
+    {
+        return $this->morphOne(File::class, 'morph')->where('name', '=', 'file_logo');
+    }
+
+    public function file_pendukung()
+    {
+        return $this->morphOne(File::class, 'morph')->where('name', '=', 'file_pendukung');
     }
 
     public function parent()

@@ -92,6 +92,14 @@ Route::group(['prefix' => config('master.url.admin')], function () {
             Route::get('/data/{id}', 'portalController@data');
             Route::get('/hapus/{id}', 'portalController@hapus');
             Route::get('/create_child/{id}', 'portalController@create_child');
+
+            Route::get('/save/{id}', 'halamanController@save');
+            Route::get('/create_child/{id}', 'halamanController@create_child');
+            Route::post('/store_halaman', 'halamanController@store_halaman');
+            Route::get('/link/{id}', 'halamanController@link');
+            Route::post('/store_link', 'halamanController@store_link');
+            Route::get('/upload/{id}', 'halamanController@upload');
+            Route::post('/store_upload', 'halamanController@store_upload');
         });
         Route::resource('portal', 'portalController');
 

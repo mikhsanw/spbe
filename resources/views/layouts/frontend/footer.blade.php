@@ -2,7 +2,7 @@
 <footer class="footer-area pt-100 pb-70">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-5 col-sm-6">
                     <div class="footer-widget">
                         <div class="footer-logo">
                             <a href="index.html">
@@ -11,99 +11,51 @@
                         </div>
                         <p>Website Resmi {{$aplikasi->nama.' '.$aplikasi->daerah}}</p>
                         <div class="footer-social">
-                            <a href="#" target="_blank"><i class='bx bxl-facebook'></i></a>
-                            <a href="#" target="_blank"><i class='bx bxl-twitter'></i></a>
-                            <a href="#" target="_blank"><i class='bx bxl-pinterest-alt'></i></a>
-                            <a href="#" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                            <a href="{!!($kontak->filterkontak('facebook')->link ?? '')!!}" target="_blank"><i class='bx bxl-facebook'></i></a>
+                            <a href="{!!($kontak->filterkontak('twitter')->link ?? '')!!}" target="_blank"><i class='bx bxl-twitter'></i></a>
+                            <a href="{!!($kontak->filterkontak('instagram')->link ?? '')!!}" target="_blank"><i class='bx bxl-instagram'></i></a>
+                            <a href="{!!($kontak->filterkontak('youtube')->link ?? '')!!}" target="_blank"><i class='bx bxl-youtube'></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-6">
                     <div class="footer-widget pl-60">
-                        <h3>For Candidate</h3>
+                        <h3>Link Terkait</h3>
                         <ul>
                             <li>
-                                <a href="job-grid.html">
+                                <a href="http://spbe.go.id">
                                     <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Browse Jobs
+                                    spbe.go.id
                                 </a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="https://spbe.menpan.go.id">
                                     <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Account
+                                    spbe.menpan.go.id
                                 </a>
                             </li>
                             <li>
-                                <a href="catagories.html">
+                                <a href="https://kominfo.go.id">
                                     <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Browse Categories
+                                    kominfo.go.id
                                 </a>
                             </li>
                             <li>
-                                <a href="resume.html">
+                                <a href="https://diskominfotik.bengkaliskab.go.id">
                                     <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Resume
+                                    diskominfotik.bengkaliskab.go.id
                                 </a>
                             </li>
                             <li>
-                                <a href="job-list.html">
+                                <a href="https://bengkaliskab.go.id">
                                     <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Job List
-                                </a>
-                            </li>
-                            <li>
-                                <a href="sign-up.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Sign Up
+                                    bengkaliskab.go.id
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="footer-widget pl-60">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li>
-                                <a href="index.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="about.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    About
-                                </a>
-                            </li>
-                            <li>
-                                <a href="faq.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    FAQ
-                                </a>
-                            </li>
-                            <li>
-                                <a href="pricing.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Pricing
-                                </a>
-                            </li>
-                            <li>
-                                <a href="privacy.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Privacy
-                                </a>
-                            </li>
-                            <li>
-                                <a href="contact.html">
-                                    <i class='bx bx-chevrons-right bx-tada'></i>
-                                    Contact
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer-widget footer-info">
                         <h3>Information</h3>
@@ -114,7 +66,7 @@
                                     Phone:
                                 </span>
                                 <a href="#">
-                                    {!!($kontak->telp?$kontak->filterkontak('telp')->isi : '')!!}
+                                {!!($kontak->filterkontak('telp')->isi ?? '')!!}
                                 </a>
                             </li>
                             <li>
@@ -122,9 +74,8 @@
                                     <i class='bx bxs-envelope'></i>
                                     Email:
                                 </span>
-                                <a
-                                    href="#">
-                                    <span >{!!($kontak->email?$kontak->filterkontak('email')->isi : '')!!}</span>
+                                <a href="#">
+                                    {!!($kontak->filterkontak('email')->link ?? '')!!}
                                 </a>
                             </li>
                             <li>
@@ -132,7 +83,9 @@
                                     <i class='bx bx-location-plus'></i>
                                     Address:
                                 </span>
-                                {!!($kontak->alamat?$kontak->filterkontak('alamat')->isi:'')!!}
+                                <a href="#">
+                                    {!!($kontak->filterkontak('alamat')->isi ?? '')!!}
+                                </a>
                             </li>
                         </ul>
                     </div>

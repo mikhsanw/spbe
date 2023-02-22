@@ -110,5 +110,12 @@ Route::group(['prefix' => config('master.url.admin')], function () {
             Route::get('/create_child/{id}', 'uploadController@create_child');
         });
         Route::resource('upload', 'uploadController');
+
+        // foto
+        Route::prefix('foto')->as('foto')->group(function () {
+            Route::get('/data', 'fotoController@data');
+            Route::get('/hapus/{id}', 'fotoController@hapus');
+        });
+        Route::resource('foto', 'fotoController');
     });
 });

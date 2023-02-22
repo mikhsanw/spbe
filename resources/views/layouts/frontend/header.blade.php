@@ -36,7 +36,6 @@
 				@if($aplikasi->file_logo)
 				<a href="{{url('/')}}" class="navbar-brand">
 					<img src="{{ URL::asset($aplikasi->file_logo->url_stream) }}" height="50px" alt="logo">
-					{{$aplikasi->singkatan??''}}
 				</a>
 				@endif
 				<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -55,8 +54,7 @@
 						@endforeach
 					</ul>
 					<div class="other-option">
-						<a href="sign-up.html" class="signup-btn">Sign Up</a>
-						<a href="sign-in.html" class="signin-btn">Sign In</a>
+						<a href="{{url('login')}}" class="signin-btn">Sign In</a>
 					</div>
 				</div>
 			</nav>

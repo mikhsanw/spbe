@@ -1,20 +1,12 @@
-{!! Form::open(array('id' => 'frmOji', 'route' => [$halaman->kode.'.store'], 'class' => 'form account-form', 'method' => 'post')) !!}
+{!! Form::open(array('id' => 'frmOji', 'route' => [$halaman->kode.'.store'], 'class' => 'form account-form', 'method' => 'post', 'files' => 'true')) !!}
 <div class="row">
     <div class="col-md-12">
         <p>
-            <small class="text-danger"> *</small>
             {!! Form::label('nama', 'Masukkan Nama', array('class' => 'control-label')) !!}
             {!! Form::text('nama', null, array('id' => 'nama', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
         </p>
         <p>
-            <small class="text-danger"> *</small>
-            {!! Form::label('status', 'Pilih Status', array('class' => 'control-label')) !!}
-            {!! Form::select('status', config('master.status_kelola'), null, array('id' => 'status', 'class' => 'select2 form-control status', 'placeholder'=>'Pilih')) !!}
-        </p>
-        <p>
-            {!! Form::label('jenis', 'Pilih Jenis', array('class' => 'control-label')) !!}
-            <small class="text-danger"> * Kosongkan jika tidak diperlukan</small>
-            {!! Form::select('jenis', config('master.jenis_halaman'), null, array('id' => 'jenis', 'class' => 'select2 form-control status', 'placeholder'=>'Pilih')) !!}
+            {!! Form::file('file_foto', null, array('id' => 'file_foto', 'class' => 'form-control')) !!}
         </p>
     </div>
 	{!! Form::hidden('table-list', 'datatable', array('id' => 'table-list')) !!}
@@ -39,4 +31,3 @@
 <script src="{{ URL::asset('resources/vendor/jquery/jquery.enc.js') }}"></script>
 <script src="{{ URL::asset('resources/vendor/jquery/jquery.form.js') }}"></script>
 <script src="{{ URL::asset(config('master.aplikasi.author').'/js/ajax_progress.js') }}"></script>
-<script src="{{ URL::asset(config('master.aplikasi.author').'/'.$halaman->kode.'/'.\Auth::id().'/ajax.js') }}"></script>

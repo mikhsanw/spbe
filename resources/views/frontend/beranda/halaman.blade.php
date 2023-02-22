@@ -30,11 +30,6 @@
 @if($data->status==4)
 <section class="categories-section faq-section pt-5 pb-70">
     <div class="container">
-        <!-- <div class="section-title text-center">
-            <h2>Choose Your Category</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Quis ipsum suspendisse ultrices.</p>
-        </div> -->
         <div class="row">
             @foreach($data->children as $item)
             @if($item->status=='1')
@@ -119,8 +114,9 @@
                     style="background: transparent url('backend/img/loading.gif') no-repeat center; width: 100%;height: 700px">
                     <p>
                         File PDF tidak dapat ditampilkan, silahkan download file
-                        <a download="{{$data->nama}}" href="{{$data->file->url_stream ?? '#'}}" target="_blank"><span
-                                class="fa fa-download"> di sini</span></a>
+                        <a download="{{$data->nama}}" href="{{$data->file->url_stream ?? '#'}}" target="_blank">
+                            <span class="fa fa-download"> di sini</span>
+                        </a>
                     </p>
                 </object>
                 @elseif($data->file->extension=='jpg' || $data->file->extension=='png')
@@ -130,8 +126,9 @@
                 @else
                 <p>
                     File tidak dapat ditampilkan, silahkan download file
-                    <a download="{{$data->nama}}" href="{{$data->file->url_download.'?t='.time() ?? '#'}}"
-                        target="_blank"><span class="fa fa-download"> di sini</span></a>
+                    <a download="{{$data->nama}}" href="{{$data->file->url_download.'?t='.time() ?? '#'}}" target="_blank">
+                        <span class="fa fa-download"> di sini</span>
+                    </a>
                 </p>
                 @endif
                 @endif

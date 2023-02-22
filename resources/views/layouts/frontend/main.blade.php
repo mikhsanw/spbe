@@ -43,7 +43,7 @@
 		@include('layouts.frontend.footer')
 
 	<div class="copyright-text text-center">
-        <p>© {{$aplikasi->singkatan.' '.$aplikasi->daerah}} Owned by <a href="https://diskominfotik.bengkaliskab.go.id/" target="_blank">Diskominfotik</a></p>
+        <p>© {{$aplikasi->singkatan.' '.$aplikasi->daerah}}. <a href="https://diskominfotik.bengkaliskab.go.id/" target="_blank">Tim IT Diskominfotik</a></p>
     </div>
 
     <div class="top-btn">

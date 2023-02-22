@@ -1,21 +1,16 @@
-{!! Form::open(array('id' => 'frmOji', 'route' => [$halaman->kode.'.update', $data->id], 'class' => 'form account-form', 'method' => 'PUT')) !!}
+{!! Form::open(array('id' => 'frmOji', 'route' => [$halaman->kode.'.update', $data->id], 'class' => 'form account-form', 'method' => 'PUT', 'files' => 'true')) !!}
 <div class="row">
     <div class="col-md-12">
         <p>
-            <small class="text-danger"> *</small>
             {!! Form::label('nama', 'Masukkan Nama', array('class' => 'control-label')) !!}
             {!! Form::text('nama', $data->nama, array('id' => 'nama', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
         </p>
         <p>
-            <small class="text-danger"> *</small>
-            {!! Form::label('status', 'Pilih Status', array('class' => 'control-label')) !!}
-            {!! Form::select('status', config('master.status_kelola'), $data->status, array('id' => 'status', 'class' => 'select2 form-control status', 'placeholder'=>'Pilih')) !!}
+            {!! Form::file('file_foto', null, array('id' => 'file_foto', 'class' => 'form-control')) !!}
         </p>
-        <p>
-            {!! Form::label('jenis', 'Pilih Jenis', array('class' => 'control-label')) !!}
-            <small class="text-danger"> * Kosongkan jika tidak diperlukan</small>
-            {!! Form::select('jenis', config('master.jenis_halaman'), $data->jenis, array('id' => 'jenis', 'class' => 'select2 form-control status', 'placeholder'=>'Pilih')) !!}
-        </p>
+    </div>
+    <div class="col-md-12">
+        <img src="{{$data->file->url_stream.'?t='.time() ?? '#'}}" style="background: transparent url({{asset('backend/img/loading.gif')}}) no-repeat center; width: 100%"/>
     </div>
 	{!! Form::hidden('table-list', 'datatable', array('id' => 'table-list')) !!}
 </div>
@@ -39,7 +34,6 @@
 <script src="{{ URL::asset('resources/vendor/jquery/jquery.enc.js') }}"></script>
 <script src="{{ URL::asset('resources/vendor/jquery/jquery.form.js') }}"></script>
 <script src="{{ URL::asset(config('master.aplikasi.author').'/js/ajax_progress.js') }}"></script>
-<script src="{{ URL::asset(config('master.aplikasi.author').'/'.$halaman->kode.'/'.\Auth::id().'/ajax.js') }}"></script>
 <script type="text/javascript">
     $('.modal-title').html('<span class="fa fa-edit"></span> Ubah {{$halaman->nama}}');
 </script>

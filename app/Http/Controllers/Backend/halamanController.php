@@ -24,7 +24,7 @@ class halamanController extends Controller
     public function data(Request $request, $id=NULL)
     {
         if ($request->ajax()) {
-            $data= $id!=NULL ? $this->model::whereParentId($id)->get() : $this->model::whereNull('parent_id')->whereJenis(config('master.jenis_halaman.halaman-company'))->get();
+            $data= $id!=NULL ? $this->model::whereParentId($id)->get() : $this->model::whereNull('parent_id')->get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('kelola', function($q){
                     if($q->status==0){
@@ -118,7 +118,6 @@ class halamanController extends Controller
                 if($request->parent_id){
                     $request->request->add(['parent_id'=>$request->parent_id]);
                 }
-                $request->request->add(['jenis'=>config('master.jenis_halaman.halaman-company')]);
                 $this->model::create($request->all());
                 $respon=['status'=>true, 'pesan'=>'Data berhasil disimpan'];
             }

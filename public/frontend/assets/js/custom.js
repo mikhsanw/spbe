@@ -129,7 +129,7 @@ jQuery(function ($) {
     $('.top-btn').on('click', function () {
         $("html, body").animate({
             scrollTop: 0
-        }, 2500);
+        }, 500);
         return false;
     });
     $(window).on('load', function () {

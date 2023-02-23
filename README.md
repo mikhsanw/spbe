@@ -1,4 +1,4 @@
-# SPBE Province Of Riau (v.1.0)
+# SPBE Bengkalis Kab (v.1.0)
 SISTEM PEMERINTAH BERBASIS ELECTRONIC (SPBE) KABUPATEN BENGKALIS
 
 ### Requirements

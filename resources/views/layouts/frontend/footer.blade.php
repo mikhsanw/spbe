@@ -6,7 +6,7 @@
                     <div class="footer-widget">
                         <div class="footer-logo">
                             <a href="index.html">
-                                <img src="{{ URL::asset($aplikasi->file_logo->url_stream)??'' }}" height="80px" alt="logo">
+                                <img src="{{ URL::asset($aplikasi->file_logo->url_stream)??'' }}" height="60px" alt="logo">
                             </a>
                         </div>
                         <p>Website Resmi {{$aplikasi->nama.' '.$aplikasi->daerah}}</p>

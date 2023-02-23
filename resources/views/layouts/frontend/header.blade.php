@@ -22,10 +22,10 @@
 
 <div class="navbar-area">
 
-	<div class="mobile-nav">
+	<div class="mobile-nav align-items-center">
 		@if($aplikasi->file_logo)
 		<a href="{{url('/')}}" class="logo">
-			<img src="{{ URL::asset($aplikasi->file_logo->url_stream) }}" alt="logo">
+			<img src="{{ URL::asset($aplikasi->file_logo->url_stream) }}" height="30px" alt="logo">
 		</a>
 		@endif
 	</div>

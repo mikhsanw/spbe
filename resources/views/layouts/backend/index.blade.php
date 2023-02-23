@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from powerbi-admin-template.multipurposethemes.com/bs4/main/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Feb 2023 04:44:23 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -126,5 +125,4 @@
 	
 </body>
 
-<!-- Mirrored from powerbi-admin-template.multipurposethemes.com/bs4/main/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Feb 2023 04:45:18 GMT -->
 </html>

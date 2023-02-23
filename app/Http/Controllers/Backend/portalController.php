@@ -29,37 +29,37 @@ class portalController extends Controller
             ->addColumn('kelola', function($q){
                 if($q->status==0){
                     $kelola = '<div style="text-align: center;">
-                        <a class="create" data-toggle="tooltip" data-placement="top" title="Tambah" '.$this->kode.'-id="'.$q->id.'" href="#create-'.$q->id.'">
-                            <i class="fas fa-plus text-info"></i>
+                        <a class="create" data-toggle="tooltip" data-placement="top" title="Konten" '.$this->kode.'-id="'.$q->id.'" href="#create-'.$q->id.'">
+                            <i class="fas fa-plus"></i>
                         </a>
                     </div>';
                 }elseif($q->status==1){
                     $kelola = '<div style="text-align: center;">
-                        <a href="'.url($this->kode.'/'.$q->id).'" class="text-info">
-                            <i class="fas fa-share text-info"></i>
+                        <a href="'.url($this->kode.'/'.$q->id).'" title="Menu" >
+                            <i class="fas fa-share"></i>
                         </a>
                     </div>';
                 }elseif($q->status==2){
                     $kelola = '<div style="text-align: center;">
-                        <a class="link" data-toggle="tooltip" data-placement="top" title="Tambah" '.$this->kode.'-id="'.$q->id.'" href="#link-'.$q->id.'">
+                        <a class="link" data-toggle="tooltip" data-placement="top" title="Link" '.$this->kode.'-id="'.$q->id.'" href="#link-'.$q->id.'">
                         <i class="fas fa-link"></i>
                         </a>
                     </div>';
                 }elseif($q->status==3){
                     $kelola = '<div style="text-align: center;">
-                        <a data-toggle="tooltip" data-placement="top" title="Tambah" href="'.url('upload/'.$q->id).'">
-                            <i class="fas fa-upload text-info"></i>
+                        <a data-toggle="tooltip" data-placement="top" title="List File" href="'.url('upload/'.$q->id).'">
+                            <i class="fas fa-upload"></i>
                         </a>
                     </div>';
                 }elseif($q->status==4){
                     $kelola = '<div style="text-align: center;">
-                        <a data-toggle="tooltip" data-placement="top" title="Tambah" href="'.url('portal/'.$q->id).'">
-                            <i class="fas fa-upload text-info"></i>
+                        <a data-toggle="tooltip" data-placement="top" title="Portal" href="'.url('portal/'.$q->id).'">
+                            <i class="fas fa-map-signs"></i>
                         </a>
                     </div>';
                 }elseif($q->status==5){
                     $kelola = '<div style="text-align: center;">
-                        <a class="upload" data-toggle="tooltip" data-placement="top" title="Tambah" '.$this->kode.'-id="'.$q->id.'" href="#upload-'.$q->id.'">
+                        <a class="upload" data-toggle="tooltip" data-placement="top" title="Upload File" '.$this->kode.'-id="'.$q->id.'" href="#upload-'.$q->id.'">
                             <i class="fas fa-file-upload"></i>
                         </a>
                     </div>';

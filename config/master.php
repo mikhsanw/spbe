@@ -74,6 +74,12 @@ return [
         '1'                 => 'Peraturan',
         '2'                 => 'Tatakelola',
         '3'                 => 'Layanan',
+        '4'                 => 'TIK',
+        '5'                 => 'SDM',
+        '6'                 => 'Integrasi',
+        '7'                 => 'Evaluasi',
+        '8'                 => 'Galeri',
+        '9'                 => 'Pengaduan',
     ],
     'status_kelola'=>[
         '0'               => 'Konten',

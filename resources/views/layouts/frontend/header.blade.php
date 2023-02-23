@@ -53,9 +53,6 @@
 						</li>
 						@endforeach
 					</ul>
-					<div class="other-option">
-						<a href="{{url('login')}}" class="signin-btn">Sign In</a>
-					</div>
 				</div>
 			</nav>
 		</div>

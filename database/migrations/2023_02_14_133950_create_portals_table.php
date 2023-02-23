@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->longText('isi')->nullable();
             $table->char('status', 1)->default(0);
-            $table->char('kategori', 1)->default(0);
+            $table->char('kategori', 1)->nullable();
             $table->uuid('parent_id')->nullable();
             $table->foreignUuid('halaman_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->timestamps();

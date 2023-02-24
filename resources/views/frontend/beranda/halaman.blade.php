@@ -46,7 +46,7 @@
                                     <a
                                         href="{{$val->status==2?$val->link:url('/company/page/'.$val->id.'/'.Help::generateSeoURL($val->nama))}}">
                                         <div class="category-item">
-                                            <i class="flaticon-wrench-and-screwdriver-in-cross"></i>
+                                            <i class="flaticon-website"></i>
                                             <h3>{{$val->nama}}</h3>
                                             <p>{{$item->nama}}</p>
                                         </div>
@@ -63,8 +63,8 @@
                 <a
                     href="{{$item->status==2?$item->link:url('/company/page/'.$item->id.'/'.Help::generateSeoURL($item->nama))}}">
                     <div class="category-card">
-                        @if($item->file)
-                        <img src="{{$item->file_logo->url_stream}}" width="60px" alt="$item->nama">
+                        @if($item->file_logo)
+                        <img src="{{$item->file_logo->url_stream}}" width="60px" alt="{{$item->nama}}">
                         @else
                         <i class='flaticon-website'></i>
                         @endif

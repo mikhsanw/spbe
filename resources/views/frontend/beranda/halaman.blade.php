@@ -43,7 +43,8 @@
                             <div class="row">
                                 @foreach($item->children as $val)
                                 <div class="col-lg-3 col-sm-6">
-                                    <a href="{{$val->status==2?$val->link:url('/company/page/'.$val->id.'/'.Help::generateSeoURL($val->nama))}}">
+                                    <a
+                                        href="{{$val->status==2?$val->link:url('/company/page/'.$val->id.'/'.Help::generateSeoURL($val->nama))}}">
                                         <div class="category-item">
                                             <i class="flaticon-wrench-and-screwdriver-in-cross"></i>
                                             <h3>{{$val->nama}}</h3>
@@ -59,7 +60,8 @@
             </div>
             @else
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="{{$item->status==2?$item->link:url('/company/page/'.$item->id.'/'.Help::generateSeoURL($item->nama))}}">
+                <a
+                    href="{{$item->status==2?$item->link:url('/company/page/'.$item->id.'/'.Help::generateSeoURL($item->nama))}}">
                     <div class="category-card">
                         @if($item->file)
                         <img src="{{$item->file_logo->url_stream}}" width="60px" alt="$item->nama">
@@ -77,61 +79,92 @@
     </div>
 </section>
 
+@elseif($data->status==3)
+<section class="job-style-two job-list-section pt-4 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <h3>Daftar Dokumen {{$data->nama}}</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="list-group">
+                    @foreach($doc as $dokumen)
+                    @if($dokumen->getExtensionAttribute()==="pdf")
+                    <a href="#" class="list-group-item list-group-item-action dokumen" data-bs-toggle="modal"
+                        data-bs-target="#dokumen-modal-lg" data-bs-title="{{$dokumen->name}}"
+                        data-bs-whatever="{{$dokumen->url_stream}}">
+                        <i class="bx bxs-file-pdf dokumen" data-bs-toggle="modal" data-bs-target="#dokumen-modal-lg"
+                            data-bs-title="{{$dokumen->name}}" data-bs-whatever="{{$dokumen->url_stream}}"></i>
+                        {{$dokumen->name}}
+                    </a>
+                    @else
+                    <a href="{{$dokumen->url_download}}"
+                        download="{{$dokumen->name.'.'.$dokumen->getExtensionAttribute()}}"
+                        class="list-group-item list-group-item-action">
+                        <i class="bx bxs-download"></i>
+                        {{$dokumen->name}}
+                    </a>
+                    @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @else
-
 <section class="contact-form-section pt-5 pb-70">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-10">
                 @if($data->status==0)
-                    <p>{!!$data->isi!!}</p>
+                <p>{!!$data->isi!!}</p>
                 @elseif($data->status==3)
-                    <div class="list-group">
-                        @foreach($doc as $dokumen)
-                        @if($dokumen->getExtensionAttribute()==="pdf")
-                        <a href="#" class="list-group-item list-group-item-action dokumen" data-bs-toggle="modal"
-                            data-bs-target="#dokumen-modal-lg" data-bs-title="{{$dokumen->name}}"
-                            data-bs-whatever="{{$dokumen->url_stream}}">
-                            <i class="bx bxs-file-pdf dokumen" data-bs-toggle="modal"
-                                data-bs-target="#dokumen-modal-lg" data-bs-title="{{$dokumen->name}}"
-                                data-bs-whatever="{{$dokumen->url_stream}}"></i>
-                            {{$dokumen->name}}
-                        </a>
-                        @else
-                        <a href="{{$dokumen->url_download}}"
-                            download="{{$dokumen->name.'.'.$dokumen->getExtensionAttribute()}}"
-                            class="list-group-item list-group-item-action">
-                            <i class="bx bxs-download"></i>
-                            {{$dokumen->name}}
-                        </a>
-                        @endif
-                        @endforeach
-                    </div>
-                @elseif($data->status==5)
-                    @if($data->file)
-                        @if($data->file->extension=='pdf')
-                        <object data="{{$data->file->url_stream.'?t='.time() ?? '#'}}" type="application/pdf"
-                            style="background: transparent url('backend/img/loading.gif') no-repeat center; width: 100%;height: 700px">
-                            <p>
-                                File PDF tidak dapat ditampilkan, silahkan download file
-                                <a download="{{$data->nama}}" href="{{$data->file->url_stream ?? '#'}}" target="_blank">
-                                    <span class="fa fa-download"> di sini</span>
-                                </a>
-                            </p>
-                        </object>
-                        @elseif($data->file->extension=='jpg' || $data->file->extension=='png')
-                        <p>
-                            <img src="{{$data->file->url_stream.'?t='.time() ?? '#'}}" />
-                        </p>
-                        @else
-                        <p>
-                            File tidak dapat ditampilkan, silahkan download file
-                            <a download="{{$data->nama}}" href="{{$data->file->url_download.'?t='.time() ?? '#'}}" target="_blank">
-                                <span class="fa fa-download"> di sini</span>
-                            </a>
-                        </p>
-                        @endif
+                <div class="list-group">
+                    @foreach($doc as $dokumen)
+                    @if($dokumen->getExtensionAttribute()==="pdf")
+                    <a href="#" class="list-group-item list-group-item-action dokumen" data-bs-toggle="modal"
+                        data-bs-target="#dokumen-modal-lg" data-bs-title="{{$dokumen->name}}"
+                        data-bs-whatever="{{$dokumen->url_stream}}">
+                        <i class="bx bxs-file-pdf dokumen" data-bs-toggle="modal" data-bs-target="#dokumen-modal-lg"
+                            data-bs-title="{{$dokumen->name}}" data-bs-whatever="{{$dokumen->url_stream}}"></i>
+                        {{$dokumen->name}}
+                    </a>
+                    @else
+                    <a href="{{$dokumen->url_download}}"
+                        download="{{$dokumen->name.'.'.$dokumen->getExtensionAttribute()}}"
+                        class="list-group-item list-group-item-action">
+                        <i class="bx bxs-download"></i>
+                        {{$dokumen->name}}
+                    </a>
                     @endif
+                    @endforeach
+                </div>
+                @elseif($data->status==5)
+                @if($data->file)
+                @if($data->file->extension=='pdf')
+                <object data="{{$data->file->url_stream.'?t='.time() ?? '#'}}" type="application/pdf"
+                    style="background: transparent url('backend/img/loading.gif') no-repeat center; width: 100%;height: 700px">
+                    <p>
+                        File PDF tidak dapat ditampilkan, silahkan download file
+                        <a download="{{$data->nama}}" href="{{$data->file->url_stream ?? '#'}}" target="_blank">
+                            <span class="fa fa-download"> di sini</span>
+                        </a>
+                    </p>
+                </object>
+                @elseif($data->file->extension=='jpg' || $data->file->extension=='png')
+                <p>
+                    <img src="{{$data->file->url_stream.'?t='.time() ?? '#'}}" />
+                </p>
+                @else
+                <p>
+                    File tidak dapat ditampilkan, silahkan download file
+                    <a download="{{$data->nama}}" href="{{$data->file->url_download.'?t='.time() ?? '#'}}"
+                        target="_blank">
+                        <span class="fa fa-download"> di sini</span>
+                    </a>
+                </p>
+                @endif
+                @endif
                 @endif
             </div>
         </div>
@@ -184,5 +217,6 @@
         display: inline-block;
         line-height: 1;
     }
+
 </style>
 @endpush

@@ -63,7 +63,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href="{{$item->status==2?$item->link:url('/company/page/'.$item->id.'/'.Help::generateSeoURL($item->nama))}}">
                     <div class="category-card">
-                        @if($item->file)
+                        @if($item->file_logo)
                         <img src="{{$item->file_logo->url_stream}}" width="60px" alt="$item->nama">
                         @else
                         <i class='flaticon-website'></i>

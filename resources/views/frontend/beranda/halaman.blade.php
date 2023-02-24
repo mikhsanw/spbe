@@ -92,17 +92,17 @@
                         <a href="#" class="list-group-item list-group-item-action dokumen" data-bs-toggle="modal"
                             data-bs-target="#dokumen-modal-lg" data-bs-title="{{$dokumen->name}}"
                             data-bs-whatever="{{$dokumen->url_stream}}">
-                            {{$dokumen->name}}
-                            <i class="fa fa-download float-end dokumen" data-bs-toggle="modal"
+                            <i class="bx bxs-file-pdf dokumen" data-bs-toggle="modal"
                                 data-bs-target="#dokumen-modal-lg" data-bs-title="{{$dokumen->name}}"
                                 data-bs-whatever="{{$dokumen->url_stream}}"></i>
+                            {{$dokumen->name}}
                         </a>
                         @else
                         <a href="{{$dokumen->url_download}}"
                             download="{{$dokumen->name.'.'.$dokumen->getExtensionAttribute()}}"
                             class="list-group-item list-group-item-action">
+                            <i class="bx bxs-download"></i>
                             {{$dokumen->name}}
-                            <i class="fa fa-download float-end"></i>
                         </a>
                         @endif
                         @endforeach

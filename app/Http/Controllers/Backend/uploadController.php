@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
-use App\Model\Profil;
+use App\Model\Halaman;
 
 class uploadController extends Controller
 {
@@ -75,7 +75,7 @@ class uploadController extends Controller
                 $respon=['status'=>false, 'pesan'=>$validator->messages()];
             }
             else {
-                $data = Profil::find($request->parent_id);
+                $data = Halaman::find($request->parent_id);
                 if ($request->hasFile('file_pendukung')) {
                     $data->file()->create([
                         'name'                  => $request->name,

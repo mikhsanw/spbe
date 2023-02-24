@@ -149,6 +149,8 @@ class uploadController extends Controller
                             'target'    => Storage::putFile($this->kode.'/file/'.date('Y').'/'.date('m').'/'.date('d'),$request->file('file_pendukung')),
                         ]
                     ]);
+                }else{
+                    $data->update([ 'name' => $request->name]);
                 }
                 $respon=['status'=>true, 'pesan'=>'Data berhasil disimpan'];
             }

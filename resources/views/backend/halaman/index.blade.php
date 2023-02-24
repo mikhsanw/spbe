@@ -12,7 +12,7 @@
 		<table id="datatable" class="table table-striped table-bordered display" style="width:100%">
 			<thead class="bg-primary">
 				<tr>
-					<th class="width-1">No</th>
+					<th width="5%">No</th>
 					<th class="text-center">Menu</th>
 					<th class="text-center">Kelola</th>
 					<th width="50px" class="text-center" tabindex="0" rowspan="1" colspan="1">Aksi</th>

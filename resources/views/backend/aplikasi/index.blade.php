@@ -7,7 +7,7 @@
 		<table id="datatable" class="table table-striped table-bordered display" style="width:100%">
 			<thead class="bg-primary">
 				<tr>
-					<th class="width-1">No</th>
+					<th width="5%">No</th>
 					<th class="text-center">Nama</th>
 					<th class="text-center">Singkatan</th>
 					<th class="text-center">Daerah</th>

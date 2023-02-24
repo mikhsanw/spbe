@@ -2,6 +2,9 @@
 @push('title',ucwords(strtolower($halaman->nama)))
 @push('header',ucwords(strtolower($halaman->nama)))
 @push('tombol')
+<a class="waves-effect waves-light btn bg-gradient-danger text-white py-2 px-3 tambah-halaman" href="{{ url()->previous() }}">
+	Kembali
+</a>
 <button class="waves-effect waves-light btn bg-gradient-primary text-white py-2 px-3 tambah-halaman">
 	Tambah
 </button>
@@ -12,7 +15,7 @@
 		<table id="datatable" class="table table-striped table-bordered display" style="width:100%">
 			<thead class="bg-primary">
 				<tr>
-					<th class="width-1">No</th>
+					<th width="5%">No</th>
 					<th class="text-center">Nama</th>
 					<th class="text-center">File</th>
 					<th width="50px" class="text-center" tabindex="0" rowspan="1" colspan="1">Aksi</th>

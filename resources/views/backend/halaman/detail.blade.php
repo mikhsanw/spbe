@@ -10,7 +10,7 @@
 	@endif
 @endpush
 @push('tombol')
-<a class="waves-effect waves-light btn bg-gradient-danger text-white py-2 px-3 tambah-halaman" href="{{ url()->previous() }}">
+<a class="waves-effect waves-light btn bg-gradient-danger text-white py-2 px-3 Kembali" href="{{ url()->previous() }}">
 	Kembali
 </a>
 <button class="waves-effect waves-light btn bg-gradient-primary text-white py-2 px-3 tambah-halaman">

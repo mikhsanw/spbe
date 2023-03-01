@@ -8,9 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="description" content="{!! ucwords(strtolower(($aplikasi->nama??'').' '.($aplikasi->daerah??''))) !!}">
     <meta name="author" content="{!! config('master.aplikasi.author') !!}">
-    <link rel="icon" href="{{ asset($aplikasi->file_favicon->url_stream) }}">
-
-    <title>{{ config('master.aplikasi.nama') }} - @stack('title')</title>
+   
+	@if($aplikasi->file_favicon)
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ asset($aplikasi->file_favicon->url_stream)??'' }}">
+		<title>@yield('title') | {{$aplikasi->singkatan.' '.$aplikasi->daerah}}</title>
+	@endif
     
 	<!-- Vendors Style-->
 	<link rel="stylesheet" href="{{url('backend/main/css/vendors_css.css')}}">
